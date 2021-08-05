@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Zone</title>
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+    
+    
+</body>
+</html>
+<script type="module" >
+    import myNavbar from "./navbar.js"
+    import {  getData, appendata } from './script/show.js'
+    document.body.innerHTML=myNavbar()
+     let movies_div = document.getElementById('movie');
+
+    let btn = document.getElementById("btnbar")
+        btn.addEventListener('click', getList)
+
+        
+            function getList(){
+                movies_div.innerHTML = null
+                data.innerHTML=null
+                movies_div.style.height="40px"
+
+                
+                 let d = document.getElementById('searchbar').value
+                 let response = getData(`https://www.themealdb.com/api/json/v1/1/search.php?s=${d}`)
+                
+                
+
+                response.then(data => {
+                   let parent = document.getElementById('data')
+                   console.log(data);
+                    appendata(data, parent)
+                    
+                });
+            }
+    let searchbar=document.getElementById('searchbar')
+    searchbar.addEventListener('input',throttle)
+    
+    
+    // let movies_div = document.getElementById('movie');
+    function throttle() {
+         movies_div.innerHTML=null
+
+           
+            let d1 = document.getElementById('searchbar').value
+            if(d1.length>1){
+                let response = getData(`https://www.themealdb.com/api/json/v1/1/search.php?s=${d1}`)
+                response.then(data => {
+                    data.meals.forEach(({ strMeal }) => {
+                        let p = document.createElement('p')
+                        p.innerHTML = strMeal
+                        movies_div.append(p);
+                    });
+                });
+
+            }
+            
+        }
+    
+
+    
+
+        
+
+    
+        
+
+</script>

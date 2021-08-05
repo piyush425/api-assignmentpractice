@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>recipe</title>
+    <link rel="stylesheet" href="main.css">
+    
+</head>
+<body>
+    
+</body>
+</html>
+<script type="module">
+    import myNavbar from "./navbar.js"
+
+    document.body.innerHTML = myNavbar()
+
+     let div_main = document.getElementById('data1')
+     let movies_div= document.getElementById('movie')
+
+        async function showMovie() {
+            movies_div.style.display="none"
+            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s`)
+            let data = await res.json();
+            console.log(data.meals)
+            data.meals.forEach(data => {
+                let div_1=document.createElement('div')
+                let img=document.createElement('img')
+                img.src=data.strMealThumb
+                let name= document.createElement('h5')
+                name.innerHTML= data.strMeal
+                let category=document.createElement('p')
+                category.innerHTML=`Category:${data.strCategory}`
+                let country=document.createElement('p')
+                country.innerHTML=`Country:${data.strArea}`
+                let id= document.createElement('p')
+                id.innerHTML=`id:${data.idMeal}`
+                div_1.append(img,name,category,country,id)
+
+
+                let div_2 = document.createElement('div')
+                let recipe=document.createElement('h2')
+                recipe.innerHTML="Recipe"
+                let detail= document.createElement('p')
+                detail.innerHTML= data.strInstructions
+
+                div_2.append(recipe,detail)
+
+                div_main.append(div_1,div_2)
+
+
+
+
+                
+                
+            });
+            
+          
+            
+        }
+        showMovie()
+
+       
+
+
+        
+
+    
+
+
+</script>

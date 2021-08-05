@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>latest</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .mid{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+<script type="module">
+    import myNavbar from "./navbar.js"
+    import {getData} from './script/show.js'
+    
+
+    document.body.innerHTML = myNavbar()
+    let div_main=document.getElementById('data2')
+    var mid = document.getElementById('movie')
+    mid.style.display = "none"
+   
+    let response= getData('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772')
+  
+    response.then(data =>{
+        console.log(data);
+        data.meals.forEach(el=>{
+            let head=document.createElement('h1')
+            head.innerHTML="Latest Newly Added Recipe"
+            head.setAttribute('class','head')
+            let div_1=document.createElement('div')
+            let img=document.createElement('img')
+            img.src=el.strMealThumb;
+            let name=document.createElement('h1')
+            name.innerHTML=el.strMeal
+            //name.setAttribute('class',name)
+            let category=document.createElement('p')
+            category.innerHTML=`Category:${el.strCategory}`
+            let country=document.createElement('p')
+            country.innerHTML=`Country:${el.strArea}`
+            let id= document.createElement('p')
+            id.innerHTML=`id:${el.idMeal}`
+            div_1.append(img,name,category,country,id)
+
+            let  div_2 = document.createElement('div')
+            let ingredient = document.createElement('h3')
+            ingredient.innerHTML = "Ingredients:"
+            let ing1 = document.createElement('p')
+            ing1.innerHTML = el.strIngredient1
+            let ing2 = document.createElement('p')
+            ing2.innerHTML = el.strIngredient2
+            let ing3 = document.createElement('p')
+            ing3.innerHTML = el.strIngredient3
+            let ing4 = document.createElement('p')
+            ing4.innerHTML = el.strIngredient4
+            let ing5 = document.createElement('p')
+            ing5.innerHTML = el.strIngredient5
+            let ing6 = document.createElement('p')
+            ing6.innerHTML = el.strIngredient6
+            let ing7 = document.createElement('p')
+            ing7.innerHTML = el.strIngredient7
+            let ing9 = document.createElement('p')
+            ing9.innerHTML = el.strIngredient9
+
+            div_2.append(ingredient, ing1, ing2, ing3, ing4, ing5, ing6, ing7, ing9)
+            div_2.setAttribute('class',div_2)
+           let div_4= document.createElement('div')
+           let  div_3 = document.createElement('div')
+            let recipe = document.createElement('h1')
+            recipe.innerHTML = "Recipe"
+            let detail = document.createElement('p')
+            detail.innerHTML = el.strInstructions
+
+            div_3.append(recipe, detail)
+            div_4.append(div_3)
+
+            div_main.append(head,div_1, div_2, div_4)
+        })
+
+    });
+
+    
+    
+</script>
